@@ -19,48 +19,48 @@ export class ZoomableImage implements OnInit, OnDestroy {
   @Output() enableScroll = new EventEmitter();
   @Output() zoomChange = new EventEmitter();
 
-  private scrollableElement: any;
-  private scrollListener: any;
+   scrollableElement: any;
+   scrollListener: any;
 
-  private scale: number = 1;
-  private scaleStart: number = 1;
+   scale: number = 1;
+   scaleStart: number = 1;
 
-  private maxScale: number = 3;
-  private minScale: number = 1;
-  private minScaleBounce: number = 0.2;
-  private maxScaleBounce: number = 0.35;
+   maxScale: number = 3;
+   minScale: number = 1;
+   minScaleBounce: number = 0.2;
+   maxScaleBounce: number = 0.35;
 
-  private imageWidth: number = 0;
-  private imageHeight: number = 0;
+   imageWidth: number = 0;
+   imageHeight: number = 0;
 
-  private originalSize: any = {
+   originalSize: any = {
     width: 0,
     height: 0,
   };
 
-  private position: any = {
+   position: any = {
     x: 0,
     y: 0,
   };
-  private scroll: any = {
+   scroll: any = {
     x: 0,
     y: 0,
   };
-  private centerRatio: any = {
+   centerRatio: any = {
     x: 0,
     y: 0,
   };
-  private centerStart: any = {
+   centerStart: any = {
     x: 0,
     y: 0,
   };
-  private panCenterStart = {
+   panCenterStart = {
     x: 0, y: 0,
   };
 
-  private containerStyle: any = {};
-  private imageStyle: any = {};
-  private resizeSubscription: any;
+   containerStyle: any = {};
+   imageStyle: any = {};
+   resizeSubscription: any;
 
   constructor() {
   }
@@ -86,7 +86,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
   /**
    * Attach the events to the items
    */
-  private attachEvents() {
+   attachEvents() {
     // Scroll event
     this.scrollListener = this.scrollEvent.bind(this);
     this.scrollableElement.addEventListener('scroll', this.scrollListener);
@@ -118,7 +118,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
   /**
    * Save the image dimensions (when it has the image)
    */
-  private saveImageDimensions() {
+   saveImageDimensions() {
     const width = this.originalSize.width;
     const height = this.originalSize.height;
 
@@ -132,7 +132,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {Hammer.Event} event
    */
-  private pinchEvent(event) {
+   pinchEvent(event) {
     let scale = this.scaleStart * event.scale;
 
     if (scale > this.maxScale) {
@@ -156,7 +156,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {Hammer.Event} event
    */
-  private pinchStartEvent(event) {
+   pinchStartEvent(event) {
     this.scaleStart = this.scale;
     this.setCenter(event);
   }
@@ -166,7 +166,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {Hammer.Event} event
    */
-  private pinchEndEvent(event) {
+   pinchEndEvent(event) {
     this.checkScroll();
 
     if (this.scale > this.maxScale) {
@@ -193,7 +193,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {Hammer.Event} event
    */
-  private doubleTapEvent(event) {
+   doubleTapEvent(event) {
     this.setCenter(event);
 
     let scale = this.scale > 1 ? 1 : 2.5;
@@ -213,7 +213,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {Hammer.Event} event
    */
-  private panEvent(event) {
+   panEvent(event) {
     // calculate center x,y since pan started
     const x = Math.max(Math.floor(this.panCenterStart.x + event.deltaX), 0);
     const y = Math.max(Math.floor(this.panCenterStart.y + event.deltaY), 0);
@@ -234,7 +234,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {Event} event
    */
-  private scrollEvent(event) {
+   scrollEvent(event) {
     this.scroll.x = event.target.scrollLeft;
     this.scroll.y = event.target.scrollTop;
   }
@@ -244,7 +244,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {Hammer.Event} event
    */
-  private setCenter(event) {
+   setCenter(event) {
     const realImageWidth = this.imageWidth * this.scale;
     const realImageHeight = this.imageHeight * this.scale;
 
@@ -261,7 +261,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    * Calculate the position and set the proper scale to the element and the
    * container
    */
-  private displayScale() {
+   displayScale() {
     const realImageWidth = this.imageWidth * this.scale;
     const realImageHeight = this.imageHeight * this.scale;
 
@@ -283,7 +283,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
   /**
    * Check wether to disable or enable scroll and then call the events
    */
-  private checkScroll() {
+   checkScroll() {
     if (this.scale > 1) {
       this.disableScroll.emit({});
     } else {
@@ -296,7 +296,7 @@ export class ZoomableImage implements OnInit, OnDestroy {
    *
    * @param  {number} scale
    */
-  private animateScale(scale:number) {
+   animateScale(scale:number) {
     this.scale += (scale - this.scale) / 5;
 
     if (Math.abs(this.scale - scale) <= 0.1) {

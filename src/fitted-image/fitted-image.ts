@@ -15,20 +15,20 @@ export class FittedImage implements OnInit, OnDestroy {
 
   @Output() onImageResized = new EventEmitter();
 
-  private loading: boolean = true;
+   loading: boolean = true;
 
-  private currentDimensions: any = {
+   currentDimensions: any = {
     width: 0,
     height: 0,
   };
 
-  private originalDimensions: any = {
+   originalDimensions: any = {
     width: 0,
     height: 0,
   };
 
-  private imageStyle: any = {};
-  private resizeSubscription: any;
+   imageStyle: any = {};
+   resizeSubscription: any;
 
   constructor() {
   }
@@ -56,7 +56,7 @@ export class FittedImage implements OnInit, OnDestroy {
   /**
    * Get the real image dimensions and other useful stuff
    */
-  private imageLoad(event) {
+   imageLoad(event) {
     // Save the original dimensions
     this.originalDimensions.width = event.target.width;
     this.originalDimensions.height = event.target.height;
@@ -70,7 +70,7 @@ export class FittedImage implements OnInit, OnDestroy {
   /**
    * Save the image dimensions (when it has the image)
    */
-  private saveImageDimensions() {
+   saveImageDimensions() {
     const width = this.originalDimensions.width;
     const height = this.originalDimensions.height;
 
